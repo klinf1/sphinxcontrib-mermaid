@@ -38,7 +38,8 @@ def class_diagram(*cls_or_modules, full=False, strict=False, namespace=None, wit
             if base.__name__ == "object" and not with_object:
                 continue
             if namespace and not base.__module__.startswith(namespace):
-                continue
+                if not with_object and base.__name__ != "object":
+                    continue
             inheritances.add((base.__name__, cls.__name__))
             if full:
                 get_tree(base)
