@@ -30,12 +30,12 @@ def get_classes(*cls_or_modules, strict=False):
             raise MermaidError(f"{cls_or_module} is not a class nor a module")
 
 
-def class_diagram(*cls_or_modules, full=False, strict=False, namespace=None):
+def class_diagram(*cls_or_modules, full=False, strict=False, namespace=None, with_object=True):
     inheritances = set()
 
     def get_tree(cls):
         for base in cls.__bases__:
-            if base.__name__ == "object":
+            if base.__name__ == "object" and not with_object:
                 continue
             if namespace and not base.__module__.startswith(namespace):
                 continue
